@@ -3,14 +3,12 @@ package com.wenld.littleprincess.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
-import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.util.Pair;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -37,20 +35,22 @@ import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
     public RecyclerView rlvAtyFilter;
     CommonAdapter adapter;
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected int getContentLayoutID() {
+        return R.layout.activity_main;
+    }
+    @Override
+    protected void initView() {
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
             getWindow().setExitTransition(new Explode());
         }
 
-        setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -82,12 +82,15 @@ public class MainActivity extends AppCompatActivity {
         rlvAtyFilter.setLayoutManager(new GridLayoutManager(this, 2));
         rlvAtyFilter.addItemDecoration(new GridItemDecoration(dip2px(this, 5)));
         rlvAtyFilter.setAdapter(adapter);
-        initListener();
+    }
+    @Override
+    protected void initData() {
+
     }
 
 
 
-    private void initListener() {
+    protected void initListener() {
         adapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener<InfoDao>() {
             @Override
             public void onItemClick(View view, RecyclerView.ViewHolder holder, InfoDao infoDao, int position) {
@@ -103,11 +106,11 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra("position", position);
                 ViewHolder viewHolder = (ViewHolder) holder;
                 Pair<View, String> p1 = Pair.create(viewHolder.getView(R.id.iv_photo), getResources().getString(R.string.transition_img));
-                Pair<View, String> p2 = Pair.create(viewHolder.getView(R.id.tv_title), getResources().getString(R.string.transition_title));
-                Pair<View, String> p3 = Pair.create(viewHolder.getView(R.id.tv_memo), getResources().getString(R.string.transition_memo));
+//                Pair<View, String> p2 = Pair.create(viewHolder.getView(R.id.tv_title), getResources().getString(R.string.transition_title));
+//                Pair<View, String> p3 = Pair.create(viewHolder.getView(R.id.tv_memo), getResources().getString(R.string.transition_memo));
                 ActivityOptionsCompat options =
                         ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this, p1
-                                , p2, p3);//与xml文件对应
+                              /*  , p2, p3*/);//与xml文件对应
                 ActivityCompat.startActivity(MainActivity.this, intent, options.toBundle());
             }
 
@@ -154,6 +157,7 @@ public class MainActivity extends AppCompatActivity {
             Transition ts = new ChangeClipBounds();
             ts.setDuration(3000);
             getWindow().setExitTransition(ts);
+            getWindow().setExitTransition(new Explode());
             return true;
         }
         if (id == R.id.action_changeImageTransform) {
