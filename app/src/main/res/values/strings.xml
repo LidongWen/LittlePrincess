@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">小公主</string>
+    <string name="action_ChangeTransform">ChangeTransform</string>
+    <string name="activon_changeClipBounds">changeClipBounds</string>
+    <string name="action_changeBounds">changeBounds</string>
+    <string name="action_changeImageTransform">changeImageTransform</string>
+
+
+    <string name="transition_img">transition_img</string>
+    <string name="transition_title">transition_title</string>
+    <string name="transition_memo">transition_memo</string>
+</resources>

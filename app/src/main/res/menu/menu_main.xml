@@ -1,0 +1,26 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.wenld.littleprincess.activity.MainActivity">
+    <item
+        android:id="@+id/action_changeBounds"
+        android:orderInCategory="100"
+        android:title="@string/action_changeBounds"
+        app:showAsAction="never" />  <item
+        android:id="@+id/action_ChangeTransform"
+        android:orderInCategory="100"
+        android:title="@string/action_ChangeTransform"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/activon_changeClipBounds"
+        android:orderInCategory="100"
+        android:title="@string/activon_changeClipBounds"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_changeImageTransform"
+        android:orderInCategory="100"
+        android:title="@string/action_changeImageTransform"
+        app:showAsAction="never" />
+</menu>
