@@ -4,9 +4,12 @@
     <string name="activon_changeClipBounds">changeClipBounds</string>
     <string name="action_changeBounds">changeBounds</string>
     <string name="action_changeImageTransform">changeImageTransform</string>
-
+    <string name="action_explode">explode</string>
+    <string name="action_slide">slide</string>
+    <string name="action_fade">fade</string>
 
     <string name="transition_img">transition_img</string>
     <string name="transition_title">transition_title</string>
     <string name="transition_memo">transition_memo</string>
+    <string name="action_fab">action_fab</string>
 </resources>

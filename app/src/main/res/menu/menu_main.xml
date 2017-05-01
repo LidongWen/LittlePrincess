@@ -6,7 +6,8 @@
         android:id="@+id/action_changeBounds"
         android:orderInCategory="100"
         android:title="@string/action_changeBounds"
-        app:showAsAction="never" />  <item
+        app:showAsAction="never" />
+    <item
         android:id="@+id/action_ChangeTransform"
         android:orderInCategory="100"
         android:title="@string/action_ChangeTransform"
@@ -23,4 +24,31 @@
         android:orderInCategory="100"
         android:title="@string/action_changeImageTransform"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/action_null"
+        android:orderInCategory="100"
+        android:title="null"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/customTransform"
+        android:orderInCategory="100"
+        android:title="自定义_01"
+        app:showAsAction="never"/>
+   <!-- <item
+        android:id="@+id/activon_explode"
+        android:orderInCategory="100"
+        android:title="@string/action_explode"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_slide"
+        android:orderInCategory="100"
+        android:title="@string/action_slide"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/activon_fade"
+        android:orderInCategory="100"
+        android:title="@string/action_fade"
+        app:showAsAction="never" />-->
+
 </menu>

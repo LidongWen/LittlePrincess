@@ -26,7 +26,7 @@ import java.util.Random;
  */
 
 public class DetailActivity extends BaseActivity {
-
+    FloatingActionButton fab;
     private ImageView iv;
     private TextView tvTitle;
     private TextView tvMemo;
@@ -53,10 +53,11 @@ public class DetailActivity extends BaseActivity {
 
             @Override
             public void onClick(View v) {
+                fab.setVisibility(View.GONE);
                 supportFinishAfterTransition();
             }
         });
-
+        fab = (FloatingActionButton) findViewById(R.id.fab);
         iv = (ImageView) findViewById(R.id.iv_activity_detail);
         tvTitle = (TextView) findViewById(R.id.tv_title_activity_detail);
         tvMemo = (TextView) findViewById(R.id.tv_memo_activity_detail);
@@ -82,17 +83,29 @@ public class DetailActivity extends BaseActivity {
 
     @Override
     protected void initListener() {
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int a = random.nextInt(InfoHepler.getList().size() - 1);
+                int a = random.nextInt(100) % InfoHepler.getList().size();
                 infoDao = InfoHepler.getList().get(a);
                 bindUI();
-                if (a / 2 == 0) {
-                    createCircularReveal();
-                } else {
-                    createCircularReveal_1();
+                switch (random.nextInt(100) % 5) {
+                    case 0:
+                        createCircularReveal();
+                        break;
+                    case 1:
+                        createCircularReveal_1();
+                        break;
+                    case 2:
+                        createCircularReveal_2();
+                        break;
+                    case 3:
+                        createCircularReveal_3();
+                        break;
+                    case 4:
+                        createCircularReveal_4();
+                        break;
                 }
 //                Snackbar.make(view, "My Little Princess , I am love you so much!", Snackbar.LENGTH_LONG)
 //                        .setAction("My Heart", null).show();
@@ -100,11 +113,11 @@ public class DetailActivity extends BaseActivity {
         });
     }
 
-
+int animatorTime=600;
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     void createCircularReveal() {
         Animator animator = ViewAnimationUtils.createCircularReveal(iv, 0, 0, 0, (float) Math.hypot(iv.getWidth(), iv.getHeight()));
-        animator.setDuration(1000);
+        animator.setDuration(animatorTime);
         animator.setInterpolator(new AccelerateInterpolator());
         animator.start();
     }
@@ -112,8 +125,38 @@ public class DetailActivity extends BaseActivity {
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     void createCircularReveal_1() {
         Animator animator = ViewAnimationUtils.createCircularReveal(iv, iv.getWidth() / 2, iv.getHeight() / 2, 0, iv.getHeight());
-        animator.setDuration(1000);
+        animator.setDuration(animatorTime);
         animator.setInterpolator(new AccelerateInterpolator());
         animator.start();
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    void createCircularReveal_2() {
+        Animator animator = ViewAnimationUtils.createCircularReveal(iv, iv.getWidth(), iv.getHeight(), 0, (float) Math.hypot(iv.getWidth(), iv.getHeight()));
+        animator.setDuration(animatorTime);
+        animator.setInterpolator(new AccelerateInterpolator());
+        animator.start();
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    void createCircularReveal_3() {
+        Animator animator = ViewAnimationUtils.createCircularReveal(iv, 0, iv.getHeight(), 0, (float) Math.hypot(iv.getWidth(), iv.getHeight()));
+        animator.setDuration(animatorTime);
+        animator.setInterpolator(new AccelerateInterpolator());
+        animator.start();
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    void createCircularReveal_4() {
+        Animator animator = ViewAnimationUtils.createCircularReveal(iv, iv.getWidth(), 0, 0, (float) Math.hypot(iv.getWidth(), iv.getHeight()));
+        animator.setDuration(animatorTime);
+        animator.setInterpolator(new AccelerateInterpolator());
+        animator.start();
+    }
+    @Override
+    public void onBackPressed() {
+        fab.setVisibility(View.GONE);
+        supportFinishAfterTransition();
+//        super.onBackPressed();
     }
 }
