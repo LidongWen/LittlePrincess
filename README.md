@@ -1,6 +1,5 @@
 # LittlePrincess 
 # 博客地址：http://www.jianshu.com/p/9e1daed3a546
-
 这篇文章的套路如下，带你装逼带你飞。
 
 > 1. 概念
