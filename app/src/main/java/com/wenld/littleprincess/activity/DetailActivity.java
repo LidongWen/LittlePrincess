@@ -12,6 +12,7 @@ import android.view.animation.AccelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.wenld.littleprincess.InfoDao;
 import com.wenld.littleprincess.InfoHepler;
 import com.wenld.littleprincess.R;
@@ -74,7 +75,11 @@ public class DetailActivity extends BaseActivity {
 
     private void bindUI() {
         if (infoDao != null) {
-            iv.setImageDrawable(getResources().getDrawable(infoDao.imgResId));
+//            iv.setImageDrawable(getResources().getDrawable(infoDao.imgResId));
+            Glide.with(this)
+                    .load(infoDao.imgUrl)
+                    .placeholder(R.mipmap.ic_launcher)
+                    .into(iv);
             tvTitle.setText(infoDao.name);
             collapsingToolbar.setTitle(infoDao.name);
             tvMemo.setText(infoDao.memo);

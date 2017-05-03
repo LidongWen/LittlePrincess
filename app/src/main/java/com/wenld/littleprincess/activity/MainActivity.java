@@ -24,8 +24,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.OvershootInterpolator;
+import android.widget.ImageView;
 import android.widget.RadioGroup;
 
+import com.bumptech.glide.Glide;
 import com.nineoldandroids.view.ViewHelper;
 import com.nineoldandroids.view.ViewPropertyAnimator;
 import com.wenld.littleprincess.GridItemDecoration;
@@ -42,6 +44,7 @@ public class MainActivity extends BaseActivity {
     CommonAdapter adapter;
     RadioGroup group;
     FloatingActionButton fab;
+
     @Override
     protected int getContentLayoutID() {
         return R.layout.activity_main;
@@ -53,7 +56,7 @@ public class MainActivity extends BaseActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-         fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab = (FloatingActionButton) findViewById(R.id.fab);
 
 
         rlvAtyFilter = (RecyclerView) findViewById(R.id.rlv_aty_main);
@@ -62,7 +65,12 @@ public class MainActivity extends BaseActivity {
             @Override
             protected void convert(ViewHolder holder, InfoDao infoDao, int position) {
 
-                holder.setImageResource(R.id.iv_photo, infoDao.imgResId);
+                ImageView imageView = holder.getView(R.id.iv_photo);
+                Glide.with(MainActivity.this)
+                        .load(infoDao.imgUrl)
+                        .placeholder(R.mipmap.ic_launcher)
+                        .into(imageView);
+//                holder.setImageResource(R.id.iv_photo, infoDao.imgResId);
                 holder.setText(R.id.tv_title, infoDao.name);
                 holder.setText(R.id.tv_memo, infoDao.memo);
 
@@ -76,7 +84,7 @@ public class MainActivity extends BaseActivity {
         rlvAtyFilter.addItemDecoration(new GridItemDecoration(dip2px(this, 5)));
         rlvAtyFilter.setAdapter(adapter);
 
-        group = (RadioGroup)this.findViewById(R.id.radioGroup_0);
+        group = (RadioGroup) this.findViewById(R.id.radioGroup_0);
     }
 
     @Override
@@ -114,7 +122,8 @@ public class MainActivity extends BaseActivity {
             public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     switch (checkedId) {
-                        case R.id.radio_1: getWindow().setExitTransition(new Explode());
+                        case R.id.radio_1:
+                            getWindow().setExitTransition(new Explode());
                             break;
                         case R.id.radio_2:
                             getWindow().setExitTransition(new Slide());
@@ -134,7 +143,7 @@ public class MainActivity extends BaseActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, LoveActivity.class);
                 ActivityOptionsCompat options;
-                Pair<View, String> p1=Pair.create((View)fab, getResources().getString(R.string.action_fab));
+                Pair<View, String> p1 = Pair.create((View) fab, getResources().getString(R.string.action_fab));
                 options = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this, p1);
                 ActivityCompat.startActivity(MainActivity.this, intent, options.toBundle());
 //                Snackbar.make(view, "My Little Princess , I am love you so much!", Snackbar.LENGTH_LONG)
@@ -149,7 +158,8 @@ public class MainActivity extends BaseActivity {
         return true;
     }
 
-    int transitionTime=30000;
+    int transitionTime = 30000;
+
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -185,7 +195,7 @@ public class MainActivity extends BaseActivity {
             getWindow().setSharedElementEnterTransition(null);
             return true;
         }
-        if(id==R.id.customTransform){
+        if (id == R.id.customTransform) {
             getWindow().setEnterTransition(new CommentEnterTransition(this, null, null));
             return true;
         }

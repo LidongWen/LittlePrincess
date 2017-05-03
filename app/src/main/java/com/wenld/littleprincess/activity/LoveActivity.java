@@ -10,8 +10,10 @@ import android.support.v7.widget.Toolbar;
 import android.transition.Transition;
 import android.transition.TransitionSet;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.wenld.littleprincess.R;
 import com.wenld.littleprincess.transition.ChangeColor;
 import com.wenld.littleprincess.transition.ChangePosition;
@@ -29,6 +31,7 @@ public class LoveActivity extends AppCompatActivity {
     View layout;
     private TextView main_activity_love;
     private TextView bottom_aty_love;
+    private ImageView ivLove;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -46,12 +49,21 @@ public class LoveActivity extends AppCompatActivity {
 
     private void initView() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        layout=findViewById(R.id.layout);
+        layout = findViewById(R.id.layout);
+        ivLove = (ImageView) findViewById(R.id.iv_activity_love);
         main_activity_love = (TextView) findViewById(R.id.main_activity_love);
         bottom_aty_love = (TextView) findViewById(R.id.bottom_aty_love);
+
+        Glide.with(this)
+                .load("http://upload-images.jianshu.io/upload_images/1599843-49d239f53a802c29.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240")
+                .placeholder(R.mipmap.ic_launcher)
+                .into(ivLove);
+
     }
+
     /**
      * 分享 元素 进入动画
+     *
      * @return
      */
     private TransitionSet buildShareElemEnterSet() {
@@ -80,6 +92,7 @@ public class LoveActivity extends AppCompatActivity {
 
     /**
      * 分享元素返回动画
+     *
      * @return
      */
     private TransitionSet buildShareElemReturnSet() {
@@ -87,21 +100,25 @@ public class LoveActivity extends AppCompatActivity {
 
         Transition changePos = new ShareElemReturnChangePosition();
         changePos.addTarget(layout);
+        changePos.setDuration(300);
         transitionSet.addTransition(changePos);
 
-        ChangeColor changeColor = new ChangeColor(Color.TRANSPARENT,getResources().getColor(R.color.colorAccent));
+        ChangeColor changeColor = new ChangeColor(Color.TRANSPARENT, getResources().getColor(R.color.colorAccent));
         changeColor.addTarget(layout);
+        changeColor.setDuration(350);
         transitionSet.addTransition(changeColor);
 
 
         Transition revealTransition = new ShareElemReturnRevealTransition(layout);
         revealTransition.addTarget(layout);
+        revealTransition.setDuration(300);
         transitionSet.addTransition(revealTransition);
 
         transitionSet.setDuration(900);
 
         return transitionSet;
     }
+
     @Override
     public void onBackPressed() {
         supportFinishAfterTransition();

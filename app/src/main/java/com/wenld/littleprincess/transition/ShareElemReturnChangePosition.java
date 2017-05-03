@@ -21,6 +21,7 @@ import android.animation.ObjectAnimator;
 import android.graphics.Path;
 import android.graphics.PointF;
 import android.graphics.Rect;
+import android.os.Build;
 import android.support.v4.view.animation.FastOutSlowInInterpolator;
 import android.transition.PathMotion;
 import android.transition.Transition;
@@ -36,19 +37,21 @@ public class ShareElemReturnChangePosition extends Transition {
 
 
     public ShareElemReturnChangePosition() {
-        setPathMotion(new PathMotion() {
-            @Override
-            public Path getPath(float startX, float startY, float endX, float endY) {
-                Path path = new Path();
-                path.moveTo(startX, startY);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            setPathMotion(new PathMotion() {
+                @Override
+                public Path getPath(float startX, float startY, float endX, float endY) {
+                    Path path = new Path();
+                    path.moveTo(startX, startY);
 
-                float controlPointX = (startX + endX) / 3;
-                float controlPointY = (startY + endY) / 2;
+                    float controlPointX = (startX + endX) / 3;
+                    float controlPointY = (startY + endY) / 2;
 
-                path.quadTo(controlPointX, controlPointY, endX, endY);
-                return path;
-            }
-        });
+                    path.quadTo(controlPointX, controlPointY, endX, endY);
+                    return path;
+                }
+            });
+        }
     }
 
     private void captureValues(TransitionValues values) {
